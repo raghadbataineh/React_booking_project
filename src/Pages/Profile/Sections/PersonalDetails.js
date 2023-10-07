@@ -9,7 +9,8 @@ const PersonalDetails = () => {
     phone: "",
   });
 
-  const [editingID, setEditingID] = useState(1);
+  const userSession = JSON.parse(sessionStorage.getItem('myData'));
+  const [editingID, setEditingID] = useState(userSession.id);
   const [editingUser, setEditingUser] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
 
@@ -58,6 +59,7 @@ const PersonalDetails = () => {
                     className="GabrielNorrisImage"
                     alt="image"
                     width="300px"
+                    style={{ marginLeft: '40px', height: '250px' }}
                   />
                 </div>
               </div>
@@ -74,6 +76,8 @@ const PersonalDetails = () => {
                     placeholder="enter your name"
                     value={userData.user}
                     readOnly
+                    style={{ width: '655px' }}
+
                   />
                 </Form.Field>
               </div>
@@ -85,6 +89,7 @@ const PersonalDetails = () => {
                     placeholder="enter your email"
                     value={userData.email}
                     readOnly
+                    style={{ width: '655px' }}
                   />
                 </FormField>
               </div>
@@ -96,6 +101,7 @@ const PersonalDetails = () => {
                     placeholder="enter your phone"
                     value={userData.phone}
                     readOnly
+                    style={{ width: '655px' }}
                   />
                 </FormField>
               </div>

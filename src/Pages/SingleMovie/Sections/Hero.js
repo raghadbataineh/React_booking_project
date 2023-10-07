@@ -1,40 +1,61 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
 
 const Hero = () => {
-  return (
-    <div id="content_hero" style={{backgroundimage: 'url("http://via.placeholder.com/1440x435")'}}>
-				
-    <img src="images/scroll-arrow.svg" alt="Scroll down" class="scroll" />
+    const [types, setTypes] = useState([]);
+    const [movies, setMovies] = useState([]);
+    const { typeid } = useParams();
+    const { id } = useParams();
+    useEffect(() => {
+        axios
+            .get(`https://651d8b9844e393af2d59fb79.mockapi.io/types/${typeid}/movies/${id}`)
+            .then((response) => {
+                setMovies(response.data);
+            });
+    }, [id]);
+    useEffect(() => {
+        axios
+            .get(`https://651d8b9844e393af2d59fb79.mockapi.io/types/${typeid}`)
+            .then((response) => {
+                setTypes(response.data);
+            });
+    }, [typeid]);
+    return (
+        <div id="content_hero" style={{ backgroundImage: `url(${movies.image})` }}>
 
-  
-    <div class="container">
-        <div class="row blurb scrollme animateme" data-when="exit" data-from="0" data-to="1" data-opacity="0" data-translatey="100">
-            <div class="col-md-9">
-                <span class="title">Action, Adventure, Sci-Fi</span>
-                <h1>Transformers: The Last Knight</h1>
-                <p>Humans and Transformers are at war, Optimus Prime is gone. The key to saving our future lies buried in the secrets of the past, in the hidden history of Transformers on Earth.</p>
-                <div class="buttons">
-                    <span class="certificate">
-                        PG
-                    </span>
-                    <a href="https://youtu.be/ScMzIvxBSi4" data-vbtype="video" class="venobox btn btn-default">
-                        <i class="material-icons">play_arrow</i>
-                        <span>Play trailer</span>
-                    </a>
-                    <div class="star-rating">
-                        <i class="material-icons">star_rate</i>
-                        <i class="material-icons">star_rate</i>
-                        <i class="material-icons">star_rate</i>
-                        <i class="material-icons">star_rate</i>
-                        <i class="material-icons">star_rate</i>
+            <img src="assets/images/scroll-arrow.svg" alt="Scroll down" className="scroll" />
+
+
+            <div className="container">
+                <div className="row blurb scrollme animateme" data-when="exit" data-from="0" data-to="1" data-opacity="0" data-translatey="100">
+                    <div className="col-md-9">
+                        <span className="title">{types.name}</span>
+                        <h1>{movies.name}</h1>
+                        <p>{movies.description}</p>
+                        <div className="buttons">
+                            <span className="certificate">
+                                PG
+                            </span>
+                            <a href="https://youtu.be/ScMzIvxBSi4" data-vbtype="video" className="venobox btn btn-default">
+                                <i className="material-icons">play_arrow</i>
+                                <span>Play trailer</span>
+                            </a>
+                            <div className="star-rating">
+                                <i className="material-icons">star_rate</i>
+                                <i className="material-icons">star_rate</i>
+                                <i className="material-icons">star_rate</i>
+                                <i className="material-icons">star_rate</i>
+                                <i className="material-icons">star_rate</i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-</div>
-  )
+        </div>
+    )
 }
 
 export default Hero

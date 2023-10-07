@@ -8,6 +8,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import { useNavigate } from "react-router";
+
 
 const Login = () => {
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -33,7 +35,10 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [message_pass, setMessage_pass] = useState("");
 
+  let navigate = useNavigate();
   let currentPageUrl = window.location.href;
+  const movieToBook = sessionStorage.getItem('movieToBook');
+  const category = sessionStorage.getItem('category');
 
   useEffect(() => {
     // Check if the email matches the email regex
@@ -74,18 +79,21 @@ const Login = () => {
 
           // Update the state to reflect the stored data
           setStoredData(user);
+        //  const user = data.find(item => item.email === email && item.pwd === pwd);
+        window.location.href = "/";
 
-          // Clear the input field
-          setEmail("");
-          setPwd("");
-          window.location.href = "/";
-          // hnavigate("/");
-        } else {
+          }
+        else {
           setMessage_pass('Invalid password. Please try again.');
           setPwd("")
+          setMessage_pass("");
+
+
         }
       } else {
         setMessage('Email not found. Please sign up.');
+        setPwd("")
+
         setMessage_pass("");
 
       }})
@@ -97,8 +105,12 @@ const Login = () => {
       });
   };
 
+ 
+
+
   return (
     <div className="half container_register">
+
       <div className="form_pading loginform ">
         <h3 className="mb-5">
           Login <strong>MovieStar</strong>
@@ -122,7 +134,10 @@ const Login = () => {
             </div>
           )}
 
+
         <Form onSubmit={handleLogin} className="Formlog">
+
+
           <div className="form-group first">
             <Form.Field>
               <label htmlFor="email">
@@ -245,7 +260,8 @@ const Login = () => {
         <img className="signupimg " src="cinema.jpg" alt="Cinema" />
       </div> */}
     </div>
-  );
-};
+  )
+  ;
+}
 
 export default Login;
