@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form } from "semantic-ui-react";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -15,7 +16,16 @@ const Reviews = () => {
   const [ratingError, setRatingError] = useState("");
   const ratingRegex = /^[1-5]$/;
 
-
+  const [movies, setMovies] = useState([]);
+  const { typeid } = useParams();
+  const { id } = useParams();
+  useEffect(() => {
+    axios
+      .get(`https://651d8b9844e393af2d59fb79.mockapi.io/types/${typeid}/movies/${id}`)
+      .then((response) => {
+        setMovies(response.data);
+      });
+  }, [id]);
 
 
   useEffect(() => {
@@ -81,9 +91,8 @@ const Reviews = () => {
                       {[1, 2, 3, 4, 5].map((starValue) => (
                         <span
                           key={starValue}
-                          className={`star ${
-                            starValue <= review.rating ? "active" : ""
-                          }`}
+                          className={`star ${starValue <= review.rating ? "active" : ""
+                            }`}
                           onClick={() => handleStarClick(starValue)}
                         >
                           ★
