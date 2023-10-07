@@ -4,12 +4,12 @@ import axios from "axios";
 import { useParams } from 'react-router-dom';
 
 const Reviews = () => {
-
+  const { id } = useParams();
   const userSession = JSON.parse(sessionStorage.getItem('myData'));
   const [reviews, setReviews] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [newRating, setNewRating] = useState("");
-  const [newMovieId, setMovieId] = useState("");
+  const [newMovieId, setMovieId] = useState(id);
   // const [newUserId, setUserId] = useState(1);
   const [newUserName, setUserName] = useState(userSession.user);
   const [newUserImage, setUserImage] = useState(userSession.image);
@@ -20,9 +20,10 @@ const Reviews = () => {
 
   const [movies, setMovies] = useState([]);
   const { typeid } = useParams();
-  const { id } = useParams();
+  // const { id } = useParams();
 
   useEffect(() => {
+  
     axios
       .get(`https://651d8b9844e393af2d59fb79.mockapi.io/types/${typeid}/movies/${id}`)
       .then((response) => {
@@ -68,7 +69,7 @@ const Reviews = () => {
   };
 
   // Filter the review based on the movie id
-  const filteredData = reviews.filter((item) => item.movieID === 1);
+  const filteredData = reviews.filter((item) => item.movieID === id);
 
   return (
     <>
@@ -121,6 +122,7 @@ const Reviews = () => {
                     value={newComment}
                     pattern="^[A-Za-z]+$"
                     onChange={(e) => setNewComment(e.target.value)}
+                    style={{ width:"100%" }}
                   />
                 </Form.Field>
 
@@ -131,6 +133,7 @@ const Reviews = () => {
                     placeholder="Rating"
                     min={1}
                     max={5}
+                    style={{ borderRadius:"5px" }}
                     value={newRating}
                     onChange={(e) => {
                       const inputValue = e.target.value;
@@ -175,8 +178,16 @@ const Reviews = () => {
                 </Form.Field>
                 <Form.Field>
                   <input
-                    type="number"
+                    type="text"
                     value={newUserImage}
+                    hidden
+                    onChange={(e) => setUserImage(e.target.value)}
+                  />
+                </Form.Field>
+                <Form.Field>
+                  <input
+                    type="number"
+                    value={newMovieId}
                     hidden
                     onChange={(e) => setUserImage(e.target.value)}
                   />
