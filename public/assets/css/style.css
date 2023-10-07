@@ -324,6 +324,10 @@ hr.space-40 {
     color: #fff;
 }
 
+.profileimg:hover{
+    transform: scale(1.1);
+    }
+
 /**  Sections  **/
 
 .section {
@@ -820,7 +824,7 @@ hr.space-40 {
     color: #fff;
 }
 
-.nav li.active a:after {
+.nav li.active a:after  {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -3157,4 +3161,7 @@ footer .copyright a:hover {
     .tabs.pill-style ul li:last-of-type a {
         border-radius: 0 0 30px 30px;
     }
+
 }
+
+

@@ -61,7 +61,7 @@ const Login = () => {
         const user = data.find(item => item.email === email && item.pwd === pwd);
   
         if (user) {
-          console.log('Login successful');
+          // console.log('Login successful');
           
           // Store the user data as a string in sessionStorage
           sessionStorage.setItem('myData', JSON.stringify(user));
@@ -75,7 +75,8 @@ const Login = () => {
           window.location.href = '/';
 
         } else {
-          console.log('Invalid email or password');
+          // console.log('Invalid email or password');
+          
           
         }
       })
@@ -193,8 +194,8 @@ const Login = () => {
          
                   <div className="d-flex mb-10 align-items-center">
                     <span className="ml-auto">
-                      <a href="#" className="forgot-pass">
-                        Forget your password ?
+                      <a href="/register" className="forgot-pass">
+                        Create an account?
                       </a>
                     </span>
                   </div>
