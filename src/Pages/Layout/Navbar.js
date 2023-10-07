@@ -71,11 +71,7 @@ const Navbar = () => {
               <NavLink to="/" 
               onClick={() => setTitle("Home")}>Home</NavLink>
             </li>
-            <li  ClassName="active">
-              <NavLink to="/allmovies" ClassName="active"
-              onClick={() => setTitle("Movies")}>Movies</NavLink>
-            </li>
-
+            
             {loggedIn ? (
               <li  ClassName="active">
                 <NavLink to="/profile" 
