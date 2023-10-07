@@ -56,6 +56,8 @@ const MovieDetails = () => {
 				}
 			});
 		} else {
+			sessionStorage.setItem('movieToBook', id);
+			sessionStorage.setItem('category', typeid);
 			navigate('/login');
 		}
 	};

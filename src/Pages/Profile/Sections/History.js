@@ -4,7 +4,7 @@ import axios from "axios";
 
 const History = () => {
 
-
+	const userSession = JSON.parse(sessionStorage.getItem('myData'));
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const History = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  const filteredData = movies.filter((item) => item.userID === 1);
+  const filteredData = movies.filter((item) => item.userID === userSession.id);
 
   return (
   
@@ -31,15 +31,15 @@ const History = () => {
 										<img
 											src={movie.image}
 											alt="Movie title"
-											style={{ height: '300px',borderRadius:'15px' }}
+											style={{width:"100%", height: '300px',borderRadius:'15px', margin:"10px" }}
                       className="profileimg"
 										/>
 									</a>
 								</div >
-                <div className="row">
-								<h4 style={{marginLeft: '15px', marginTop: '10px', fontWeight: 'bold'}} className="no-underline col-sm-7">{movie.nameMovie}</h4>
+                {/* <div className="row">
+								<h4 style={{marginLeft: '15px', marginTop: '10px', fontWeight: 'bold'}} className="no-underline col-sm-4">{movie.nameMovie}</h4>
 								<h4 style={{marginLeft: '15px', marginTop: '10px', fontWeight: 'bold' }} className="no-underline col-sm-3">{movie.status}</h4>
-                </div>
+                </div> */}
 							</div>
 						);
 					})}

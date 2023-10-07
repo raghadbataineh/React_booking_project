@@ -4,13 +4,15 @@ import axios from "axios";
 import { useParams } from 'react-router-dom';
 
 const Reviews = () => {
+
+  const userSession = JSON.parse(sessionStorage.getItem('myData'));
   const [reviews, setReviews] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [newRating, setNewRating] = useState("");
-  const [newMovieId, setMovieId] = useState(1);
+  const [newMovieId, setMovieId] = useState("");
   // const [newUserId, setUserId] = useState(1);
-  const [newUserName, setUserName] = useState("user Name");
-  const [newUserImage, setUserImage] = useState("assets/images/user.png");
+  const [newUserName, setUserName] = useState(userSession.user);
+  const [newUserImage, setUserImage] = useState(userSession.image);
 
 
   const [ratingError, setRatingError] = useState("");
@@ -19,6 +21,7 @@ const Reviews = () => {
   const [movies, setMovies] = useState([]);
   const { typeid } = useParams();
   const { id } = useParams();
+
   useEffect(() => {
     axios
       .get(`https://651d8b9844e393af2d59fb79.mockapi.io/types/${typeid}/movies/${id}`)

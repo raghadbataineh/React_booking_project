@@ -72,7 +72,7 @@ const Navbar = () => {
               onClick={() => setTitle("Home")}>Home</NavLink>
             </li>
             <li  ClassName="active">
-              <NavLink to="/AllMovies" ClassName="active"
+              <NavLink to="/allmovies" ClassName="active"
               onClick={() => setTitle("Movies")}>Movies</NavLink>
             </li>
 
