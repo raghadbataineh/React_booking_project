@@ -65,13 +65,8 @@ const Login = () => {
         const user = data.find(item => item.email === email && item.pwd === pwd);
 
         if (user) {
-<<<<<<< HEAD
-          // console.log('Login successful');
-          
-=======
           console.log('Login successful');
 
->>>>>>> aa252cdb39369a9d205a5fd34442afccd39c8d14
           // Store the user data as a string in sessionStorage
           sessionStorage.setItem('myData', JSON.stringify(user));
 
@@ -89,14 +84,8 @@ const Login = () => {
           }
 
         } else {
-<<<<<<< HEAD
-          // console.log('Invalid email or password');
-          
-          
-=======
           console.log('Invalid email or password');
 
->>>>>>> aa252cdb39369a9d205a5fd34442afccd39c8d14
         }
       })
       .catch(error => {
@@ -158,31 +147,6 @@ const Login = () => {
             </p>
           </div>
 
-<<<<<<< HEAD
-         
-                  <div className="d-flex mb-10 align-items-center">
-                    <span className="ml-auto">
-                      <a href="/register" className="forgot-pass">
-                        Create an account?
-                      </a>
-                    </span>
-                  </div>
-                
-                  <Button
-                    type="submit"
-                    className="signup"
-                    disabled={
-                      !validPwd ||
-                     
-                      !validEmail
-                    }
-                  >
-                   Log in
-                  </Button>
-                </Form>
-              </div>
-            
-=======
           <div className="form-group last mb-3">
             <Form.Field>
               <label htmlFor="password">
@@ -196,7 +160,6 @@ const Login = () => {
                   className={validPwd || !pwd ? "hide" : "invalid"}
                 />
               </label>
->>>>>>> aa252cdb39369a9d205a5fd34442afccd39c8d14
 
               <input
                 type="password"
