@@ -246,15 +246,13 @@ textarea {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  /* background-color:rgb(69, 67, 67); */
   height: 100vh; 
 }
 
 .container_register .form{
   width: 50%;
   height: 100vh;
-  
-
+ 
 }
 .container_register .loginform {
   width: 50%;
@@ -282,7 +280,7 @@ textarea {
 
 
 .form_pading {
-  padding: 20px 60px 0 180px;
+  padding: 100px 60px 0px 180px;
 }
 
 .form_pading h3 {
@@ -394,3 +392,7 @@ textarea {
   }
 }
 
+.error_msg {
+  margin-bottom: 20px;
+  color: red;
+}

@@ -362,7 +362,7 @@ function Register() {
 
                   <div className="d-flex mb-10 align-items-center">
                     <span className="ml-auto">
-                      <a href="#" className="forgot-pass">
+                      <a href="/login" className="forgot-pass">
                         Already a member?Log in
                       </a>
                     </span>
