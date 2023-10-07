@@ -635,8 +635,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/single" element={<MainMovie />} />
-          <Route path="/allmovies" element={<AllMovies />} />
+          <Route path="/allmovies/:typeid/single/:id" element={<MainMovie />} />
+          <Route path="/allmovies/:typeid" element={<AllMovies />} />
           <Route path="/profile" element={<MainProfile />} />
           <Route path="/contactus" element={<Contact />} />
           <Route path="/aboutus" element={<About />} />
