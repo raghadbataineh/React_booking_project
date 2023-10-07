@@ -11,8 +11,9 @@ const Reviews = () => {
   const [newRating, setNewRating] = useState("");
   const [newMovieId, setMovieId] = useState(id);
   // const [newUserId, setUserId] = useState(1);
-  const [newUserName, setUserName] = useState(userSession.user);
-  const [newUserImage, setUserImage] = useState(userSession.image);
+  const [newUserName, setUserName] = useState();
+  const [newUserImage, setUserImage] = useState();
+
 
 
   const [ratingError, setRatingError] = useState("");
@@ -41,7 +42,8 @@ const Reviews = () => {
   }, []);
 
   const addItem = () => {
-    if (!ratingError) {
+
+    if (!ratingError ) {
       // Form is valid, proceed with submission
       // Send a POST request to create a new item
       axios
@@ -50,8 +52,8 @@ const Reviews = () => {
           rating: newRating,
           // userID: newUserId,
           movieID: newMovieId,
-          userName: newUserName,
-          userImage: newUserImage,
+          userName: userSession.user,
+          userImage: userSession.image,
         })
         .then((response) => {
           setReviews([...reviews, response.data]);
@@ -59,6 +61,7 @@ const Reviews = () => {
           setNewRating("");
         })
         .catch((error) => console.error(error));
+        
     } else {
       console.log("Form is not valid");
     }
@@ -198,7 +201,7 @@ const Reviews = () => {
                 <Button
                   className="btn btn-ghost"
                   type="submit"
-                  disabled={!newComment || !newRating || ratingError}
+                  disabled={!newComment || !newRating || ratingError || !userSession}
                   onClick={addItem}
                 >
                   Add Comment

@@ -80,13 +80,19 @@ const Login = () => {
           // Update the state to reflect the stored data
           setStoredData(user);
         //  const user = data.find(item => item.email === email && item.pwd === pwd);
-        window.location.href = "/";
+        // window.location.href = "/";
+        if (movieToBook) {
+          sessionStorage.removeItem('movieToBook');
+          navigate(`/allmovies/${category}/single/${movieToBook}`);
+        } else {
+          navigate(`/`);
+        }
 
           }
         else {
           setMessage_pass('Invalid password. Please try again.');
           setPwd("")
-          setMessage_pass("");
+          // setMessage_pass("");
 
 
         }
