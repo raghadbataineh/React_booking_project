@@ -2,7 +2,7 @@ import React from 'react'
 
 const Hero = () => {
     return (
-        <div id="content_hero" style={{ backgroundImage: 'url(http://via.placeholder.com/1440x435)' }}>
+        <div id="content_hero" style={{ backgroundImage: 'url(https://i.pinimg.com/564x/df/4e/a1/df4ea195f36283760472fe41f0684ffb.jpg)' }}>
             <div className="container">
                 <div className="row blurb scrollme animateme" data-when="exit" data-from="0" data-to="1" data-opacity="0" data-translatey="100">
                     <div className="col-md-9">
