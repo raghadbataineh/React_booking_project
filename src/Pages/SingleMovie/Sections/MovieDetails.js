@@ -1,29 +1,64 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from "react-router";
+import Swal from 'sweetalert2';
 
 const MovieDetails = () => {
 	const [movies, setMovies] = useState([]);
 	const { id } = useParams();
 	const { typeid } = useParams();
+
+	let navigate = useNavigate();
 	useEffect(() => {
 		axios
 			.get(`https://651d8b9844e393af2d59fb79.mockapi.io/types/${typeid}/movies/${id}`)
 			.then((response) => {
 				setMovies(response.data);
-
-				// Extract unique showtime days from movie data
-				// const uniqueDays = Array.from(
-				// 	new Set(
-				// 		response.data.flatMap((movie) =>
-				// 			movie.showtimes.map((showtime) => showtime.day)
-				// 		)
-				// 	)
-				// );
-				//setAvailableDays(uniqueDays);
-				//setSelectedDay(uniqueDays[0] || ''); // Set the initial day to the first available day
 			});
 	}, [id]);
+	const handleBooking = () => {
+		const userData = JSON.parse(sessionStorage.getItem('myData'));
+		const isLoggedIn = userData ? true : false;
+
+		if (isLoggedIn) {
+			// Show a sweet alert to confirm the booking
+			Swal.fire({
+				title: 'Confirm Booking',
+				text: 'Are you sure you want to book this movie?',
+				icon: 'question',
+				showCancelButton: true,
+				confirmButtonText: 'Yes, book it!',
+				cancelButtonText: 'Cancel'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					// User confirmed the booking
+					axios
+						.post('https://651c0dd4194f77f2a5af4f26.mockapi.io/movieBooking', {
+							nameMovie: movies.name,
+							status: 'booked',
+							image: movies.image,
+							bookingDate: new Date().toISOString(),
+							movieID: id,
+							userID: userData.id,
+						})
+						.then((response) => {
+							console.log('Booking successful!', response.data);
+							Swal.fire('Booking Successful', 'Your movie has been booked!', 'success');
+						})
+						.catch((error) => {
+							console.error('Error booking the movie:', error);
+							Swal.fire('Booking Failed', 'There was an error while booking.', 'error');
+						});
+				} else {
+					// User canceled the booking
+					Swal.fire('Booking Canceled', 'Your booking has been canceled.', 'info');
+				}
+			});
+		} else {
+			navigate('/login');
+		}
+	};
 	return (
 		<div class="container section single-movie">
 			<div class="row">
@@ -47,14 +82,15 @@ const MovieDetails = () => {
 				</div>
 				<div class="col-sm-4 col-sm-push-1">
 					<h2>Viewing times</h2>
-					<ul class="show-times">
-						<li><i>Monday</i> <span class="time past">13:00</span> <span class="time">16:00</span> <span class="time">19:30</span> <span class="time">22:00</span></li>
-						<li><i>Tuesday</i> <span class="time past">13:00</span> <span class="time">15:30</span> <span class="time">19:30</span> <span class="time">22:00</span></li>
-						<li class="today"><i>Today</i> <span class="time past">12:00</span> <span class="time">16:00</span> <span class="time">19:30</span> <span class="time">22:00</span></li>
-						<li><i>Thursday</i> <span class="time past">13:00</span> <span class="time">16:00</span> <span class="time">20:15</span> <span class="time">22:00</span></li>
-						<li><i>Friday</i> <span class="time past">13:00</span> <span class="time">14:45</span> <span class="time">19:30</span> <span class="time">22:00</span></li>
-						<li><i>Saturday</i> <span class="time past">14:15</span> <span class="time">16:00</span> <span class="time">19:30</span> <span class="time">22:00</span></li>
-						<li><i>Sunday</i> <span class="time past">13:00</span> <span class="time">16:00</span> <span class="time">19:30</span> <span class="time">22:20</span></li>
+					<ul className="show-times">
+						{movies.showtimes && movies.showtimes.map((showtime, index) => (
+							<li key={index}>
+								<i>{showtime.day}</i>
+								{showtime.time.map((time, timeIndex) => (
+									<input onClick={handleBooking} className="time" key={timeIndex} style={{ border: 'none' }} type='submit' value={time} />
+								))}
+							</li>
+						))}
 					</ul>
 				</div>
 			</div>
